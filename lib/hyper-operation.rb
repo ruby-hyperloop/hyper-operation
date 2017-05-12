@@ -8,7 +8,10 @@ if RUBY_ENGINE == 'opal'
   require 'mutations'
   require 'hyper-operation/filters/outbound_filter'
   require 'hyper-component'
-  require 'hyper-operation/call_by_class_name'
+
+  # This slows everything WAY down...
+  # require 'hyper-operation/call_by_class_name'
+
   require 'hyper-operation/transport/client_drivers'
   class HashWithIndifferentAccess < Hash
   end
@@ -44,7 +47,10 @@ else
   require 'hyper-operation/delay_and_interval'
   require 'hyper-operation/exception'
   require 'hyper-operation/promise'
-  require 'hyper-operation/call_by_class_name'
+
+  # This slows everything WAY down...
+  # require 'hyper-operation/call_by_class_name'
+
   require 'hyper-operation/railway'
   require 'hyper-operation/api'
   require 'hyper-operation/railway/dispatcher'
