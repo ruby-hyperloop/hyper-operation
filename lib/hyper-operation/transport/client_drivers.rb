@@ -121,6 +121,7 @@ module Hyperloop
         client_logging: Hyperloop.client_logging,
         pusher_fake_js: pusher_fake_js,
         key: Hyperloop.key,
+        cluster: Hyperloop.cluster,
         encrypted: Hyperloop.encrypted,
         channel: Hyperloop.channel,
         form_authenticity_token: controller.send(:form_authenticity_token),
@@ -153,6 +154,18 @@ module Hyperloop
 
     def self.initialize_client_drivers_on_boot
 
+      if @initialized
+        # 1) skip initialization if already initialized
+        # 2) if running action_cable make sure connection is up after pinging the server_up
+        #    action cable closes the connection if files change on the server
+        HTTP.get("#{`window.HyperloopEnginePath`}/server_up") do
+          `#{Hyperloop.action_cable_consumer}.connection.open()` if `#{Hyperloop.action_cable_consumer}.connection.disconnected`
+        end if Hyperloop.action_cable_consumer
+        return
+      end
+
+      @initialized = true
+
       if RUBY_ENGINE == 'opal'
         @opts = Hash.new(`window.HyperloopOpts`)
       end
@@ -176,6 +189,7 @@ module Hyperloop
             %x{
               h = {
                 encrypted: #{opts[:encrypted]},
+                cluster: #{opts[:cluster]},
                 authEndpoint: window.HyperloopEnginePath+'/hyperloop-pusher-auth',
                 auth: {headers: {'X-CSRF-Token': #{opts[:form_authenticity_token]}}}
               };
