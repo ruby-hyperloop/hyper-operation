@@ -129,7 +129,7 @@ describe "Transport Tests", js: true do
       # mount our test component
       mount "TestComponent"
       # add a model
-      CreateTestModel(test_attribute: "I'm new here!")
+      CreateTestModel.run(test_attribute: "I'm new here!")
       # until we connect there should only be 5 items
       page.should have_content("0 items")
       # okay now we can go ahead and connect (this runs on the client)
@@ -137,7 +137,7 @@ describe "Transport Tests", js: true do
       # once we connect it should change to 6
       page.should have_content("1 items")
       # now that we are connected the UI should keep updating
-      CreateTestModel(test_attribute: "I'm also new here!")
+      CreateTestModel.run(test_attribute: "I'm also new here!")
       page.should have_content("2 items")
     end
 
@@ -146,7 +146,7 @@ describe "Transport Tests", js: true do
       mount "TestComponent"
       evaluate_ruby "Hyperloop.go_ahead_and_connect"
       wait_for_ajax
-      evaluate_ruby "MyControllerOp(data: 'hello')"
+      evaluate_ruby "MyControllerOp.run(data: 'hello')"
       page.should have_content("hello")
     end
   end
@@ -179,7 +179,7 @@ describe "Transport Tests", js: true do
 
     it "receives change notifications" do
       mount "TestComponent"
-      CreateTestModel(test_attribute: "I'm new here!")
+      CreateTestModel.run(test_attribute: "I'm new here!")
       Hyperloop::Connection.active.should =~ ['ScopeIt::TestApplication']
       page.should have_content("1 items")
       Hyperloop::Connection.active.should =~ ['ScopeIt::TestApplication']
@@ -191,7 +191,7 @@ describe "Transport Tests", js: true do
       sleep 0.25
       evaluate_ruby "Hyperloop.go_ahead_and_connect"
       wait_for_ajax
-      evaluate_ruby "MyControllerOp(data: 'hello')"
+      evaluate_ruby "MyControllerOp.run(data: 'hello')"
       page.should have_content("hello")
     end
 
@@ -247,7 +247,7 @@ describe "Transport Tests", js: true do
       # mount our test component
       mount "TestComponent"
       # add a model
-      CreateTestModel(test_attribute: "I'm new here!")
+      CreateTestModel.run(test_attribute: "I'm new here!")
       # until we connect there should only be 5 items
       page.should have_content("0 items")
       # okay now we can go ahead and connect (this runs on the client)
@@ -255,7 +255,7 @@ describe "Transport Tests", js: true do
       # once we connect it should change to 6
       page.should have_content("1 items")
       # now that we are connected the UI should keep updating
-      CreateTestModel(test_attribute: "I'm also new here!")
+      CreateTestModel.run(test_attribute: "I'm also new here!")
       page.should have_content("2 items")
     end
 
@@ -265,7 +265,7 @@ describe "Transport Tests", js: true do
       sleep 0.25
       evaluate_ruby "Hyperloop.go_ahead_and_connect"
       wait_for_ajax
-      evaluate_ruby "MyControllerOp(data: 'hello')"
+      evaluate_ruby "MyControllerOp.run(data: 'hello')"
       page.should have_content("hello")
     end
   end
@@ -315,7 +315,7 @@ describe "Transport Tests", js: true do
       # mount our test component
       mount "TestComponent"
       # add a model
-      CreateTestModel(test_attribute: "I'm new here!")
+      CreateTestModel.run(test_attribute: "I'm new here!")
       # until we connect there should only be 5 items
       page.should have_content("0 items")
       # okay now we can go ahead and connect (this runs on the client)
@@ -323,7 +323,7 @@ describe "Transport Tests", js: true do
       # once we connect it should change to 6
       page.should have_content("1 items")
       # now that we are connected the UI should keep updating
-      CreateTestModel(test_attribute: "I'm also new here!")
+      CreateTestModel.run(test_attribute: "I'm also new here!")
       page.should have_content("2 items")
     end
 
@@ -333,7 +333,7 @@ describe "Transport Tests", js: true do
       sleep 0.25
       evaluate_ruby "Hyperloop.go_ahead_and_connect"
       wait_for_ajax
-      evaluate_ruby "MyControllerOp(data: 'hello')"
+      evaluate_ruby "MyControllerOp.run(data: 'hello')"
       page.should have_content("hello")
     end
   end
