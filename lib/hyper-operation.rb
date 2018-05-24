@@ -50,7 +50,7 @@ else
   require 'hyper-operation/api'
   require 'hyper-operation/railway/dispatcher'
   require 'hyper-operation/railway/params_wrapper'
-  require 'hyper-operation/railway/run.rb'
+  require 'hyper-operation/railway/run'
   require 'hyper-operation/railway/validations'
   require 'hyper-operation/transport/hyperloop_controller'
   require 'hyper-operation/server_op'
